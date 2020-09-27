@@ -1,0 +1,9 @@
+
+    <table class="squares">
+     <tr *ngFor="let row of squares">
+          <td *ngFor="let cell of row">
+                <button (click)="move(cell)">{{cell.hasKnight}}</button>
+          </td>
+     </tr>
+    </table>
+
