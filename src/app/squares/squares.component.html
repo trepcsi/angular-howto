@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div>
   <button (click)="start()">Find the Hamiltonian path</button>
   <button (click)=restart()>Restart</button>
 </div>
@@ -15,7 +15,6 @@
           (cell.x % 2 == 0 && cell.y % 2 == 1)
       }"
       (click)="move(cell)"
-      class="text-center"
     >
       <i class="fas fa-chess-knight fa-3x" *ngIf="cell.hasKnight"></i>
     </div>
