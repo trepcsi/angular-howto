@@ -1,9 +1,27 @@
-
+<!-- 
     <table class="squares">
      <tr *ngFor="let row of squares">
           <td *ngFor="let cell of row">
                 <button (click)="move(cell)">{{cell.hasKnight}}</button>
           </td>
      </tr>
-    </table>
-
+    </table> -->
+<div class="table">
+  <div *ngFor="let row of squares" class="chessRow">
+    <div
+      *ngFor="let cell of row"
+      [ngClass]="{
+        black:
+          (cell.x % 2 == 0 && cell.y % 2 == 0) ||
+          (cell.x % 2 == 1 && cell.y % 2 == 1),
+        white:
+          (cell.x % 2 == 1 && cell.y % 2 == 0) ||
+          (cell.x % 2 == 0 && cell.y % 2 == 1)
+      }"
+      (click)="move(cell)"
+      class="text-center"
+    >
+      <i class="fas fa-chess-knight fa-3x" *ngIf="cell.hasKnight"></i>
+    </div>
+  </div>
+</div>

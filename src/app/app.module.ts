@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SquaresComponent } from './squares/squares.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { SquaresComponent } from './squares/squares.component';
     SquaresComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

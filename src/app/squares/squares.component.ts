@@ -4,11 +4,10 @@ import { Square } from '../square';
 @Component({
   selector: 'app-squares',
   templateUrl: './squares.component.html',
-  styleUrls: ['./squares.component.css']
+  styleUrls: ['./squares.component.css'],
 })
 export class SquaresComponent implements OnInit {
-
-  squares: Square[][] = [
+  public squares: Square[][]; /*= [
     [{x:0, y:0, hasKnight:false},{x:1, y:0, hasKnight:false},{x:2, y:0, hasKnight:false},{x:3, y:0, hasKnight:false},{x:4, y:0, hasKnight:false},{x:5, y:0, hasKnight:false},{x:6, y:0, hasKnight:false},{x:7, y:0, hasKnight:false}],
     [{x:0, y:1, hasKnight:false},{x:1, y:1, hasKnight:false},{x:2, y:1, hasKnight:false},{x:3, y:1, hasKnight:false},{x:4, y:1, hasKnight:false},{x:5, y:1, hasKnight:false},{x:6, y:1, hasKnight:false},{x:7, y:1, hasKnight:false}],
     [{x:0, y:2, hasKnight:false},{x:1, y:2, hasKnight:false},{x:2, y:2, hasKnight:false},{x:3, y:2, hasKnight:false},{x:4, y:2, hasKnight:false},{x:5, y:2, hasKnight:false},{x:6, y:2, hasKnight:false},{x:7, y:2, hasKnight:false}],
@@ -17,18 +16,25 @@ export class SquaresComponent implements OnInit {
     [{x:0, y:5, hasKnight:false},{x:1, y:5, hasKnight:false},{x:2, y:5, hasKnight:false},{x:3, y:5, hasKnight:false},{x:4, y:5, hasKnight:false},{x:5, y:5, hasKnight:false},{x:6, y:5, hasKnight:false},{x:7, y:5, hasKnight:false}],
     [{x:0, y:6, hasKnight:false},{x:1, y:6, hasKnight:false},{x:2, y:6, hasKnight:false},{x:3, y:6, hasKnight:false},{x:4, y:6, hasKnight:false},{x:5, y:6, hasKnight:false},{x:6, y:6, hasKnight:false},{x:7, y:6, hasKnight:false}],
     [{x:0, y:7, hasKnight:false},{x:1, y:7, hasKnight:false},{x:2, y:7, hasKnight:false},{x:3, y:7, hasKnight:false},{x:4, y:7, hasKnight:false},{x:5, y:7, hasKnight:false},{x:6, y:7, hasKnight:false},{x:7, y:7, hasKnight:false}]
-  ];
-
+  ];*/
   constructor() {
+    this.squares = [];
+    for (let i = 0; i < 8; i++) {
+      this.squares[i] = [];
+      for (let j = 0; j < 8; j++) {
+        this.squares[i][j] = new Square(i, j, false);
+      }
+    }
+    console.log(this.squares);
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  move(cell: Square){
-    this.squares.forEach(element=> element.forEach(e=>e.hasKnight=false))
-    this.squares[cell.y][cell.x].hasKnight = true;
+  move(cell: Square) {
+    this.squares.forEach((element) =>
+      element.forEach((e) => (e.hasKnight = false))
+    );
+    this.squares[cell.x][cell.y].hasKnight = true;
+    console.log(this.squares);
   }
-
 }
