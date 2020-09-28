@@ -1,5 +1,9 @@
+<div class="grid-container">
+  <button (click)="start()">Find the Hamiltonian path</button>
+  <button (click)=restart()>Restart</button>
+</div>
 <div class="table">
-  <div *ngFor="let row of squares" class="chessRow">
+  <div *ngFor="let row of squares">
     <div
       *ngFor="let cell of row"
       [ngClass]="{
@@ -17,3 +21,4 @@
     </div>
   </div>
 </div>
+

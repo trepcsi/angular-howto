@@ -8,8 +8,9 @@ import { Square } from '../square';
 })
 export class SquaresComponent implements OnInit {
   public squares: Square[][];
-
+  public inprogress: boolean;
   constructor() {
+    this.inprogress=false;
     this.squares = [];
     for (let i = 0; i < 8; i++) {
       this.squares[i] = [];
@@ -27,5 +28,20 @@ export class SquaresComponent implements OnInit {
       element.forEach((e) => (e.hasKnight = false))
     );
     this.squares[cell.x][cell.y].hasKnight = true;
+  }
+
+  start(){
+    if(!this.inprogress){
+      this.squares[0][0].hasKnight=true;
+      this.inprogress=true;
+    }
+  }
+
+  restart(){
+    this.inprogress=false;
+    this.squares.forEach((element) =>
+      element.forEach((e) => (e.hasKnight = false))
+    );
+    this.start();
   }
 }
