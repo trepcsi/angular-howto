@@ -24,6 +24,9 @@ export class SquaresComponent implements OnInit {
   ngOnInit(): void {}
 
   move(cell: Square) {
+    if (!this.inprogress){
+      return;
+    }
     this.squares.forEach((element) =>
       element.forEach((e) => (e.hasKnight = false))
     );
