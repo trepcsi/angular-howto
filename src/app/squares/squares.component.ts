@@ -45,10 +45,11 @@ export class SquaresComponent implements OnInit {
     }
 
 
-    //with chessboard.model.ts s Piece comment i can see x,y-s in log
+    //first try results in error
+    //the second try properly gets the board
     this.dataService.getBoard()
       .subscribe(board => this.chessboard$ = board);
-    this.chessboard$.forEach(i=>console.log(i.x, i.y))
+    this.chessboard$.forEach(i=>console.log(i))
 
   }
 

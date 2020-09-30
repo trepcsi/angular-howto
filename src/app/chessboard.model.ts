@@ -4,7 +4,7 @@ export class Chessboard{
     x: number;
     y: number;
 
-    //piece: Piece;
+    piece: Piece;
 
     /*example json:
     [{
@@ -20,8 +20,5 @@ export class Chessboard{
         "x": 0,
         "y": 1,
         "piece": null
-    },*/
-
-    //without the Piece its working - can get x,y-s from backend
-    
+    },...]*/
 }
