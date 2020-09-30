@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Chessboard } from '../chessboard.model';
+import { DataService } from '../data.service';
 import { Square } from '../square';
 
 @Component({
@@ -7,9 +9,12 @@ import { Square } from '../square';
   styleUrls: ['./squares.component.css'],
 })
 export class SquaresComponent implements OnInit {
+
   public squares: Square[][];
   public inprogress: boolean;
-  constructor() {
+  public chessboard$: Chessboard[];
+
+  constructor(private dataService: DataService) {
     this.inprogress=false;
     this.squares = [];
     for (let i = 0; i < 8; i++) {
@@ -38,6 +43,13 @@ export class SquaresComponent implements OnInit {
       this.squares[0][0].hasKnight=true;
       this.inprogress=true;
     }
+
+
+    //with chessboard.model.ts s Piece comment i can see x,y-s in log
+    this.dataService.getBoard()
+      .subscribe(board => this.chessboard$ = board);
+    this.chessboard$.forEach(i=>console.log(i.x, i.y))
+
   }
 
   restart(){
