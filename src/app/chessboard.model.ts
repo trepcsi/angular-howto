@@ -6,6 +6,8 @@ export class Chessboard{
 
     piece: Piece;
 
+    taken: boolean;
+
     /*example json:
     [{
         "x": 0,

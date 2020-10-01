@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chessboard } from '../chessboard.model';
 import { DataService } from '../data.service';
+import { Move } from '../move';
 import { Square } from '../square';
 
 @Component({
@@ -14,6 +15,9 @@ export class SquaresComponent implements OnInit {
   public inprogress: boolean;
   public chessboard$: Chessboard[];
 
+  public fromSquare: Move = new Move(0,0);
+  public toSquare: Move;
+
   constructor(private dataService: DataService) {
     this.inprogress=false;
     this.squares = [];
@@ -23,7 +27,6 @@ export class SquaresComponent implements OnInit {
         this.squares[i][j] = new Square(i, j, false);
       }
     }
-    console.log(this.squares);
   }
 
   ngOnInit(): void {}
@@ -32,10 +35,25 @@ export class SquaresComponent implements OnInit {
     if (!this.inprogress){
       return;
     }
-    this.squares.forEach((element) =>
-      element.forEach((e) => (e.hasKnight = false))
-    );
-    this.squares[cell.x][cell.y].hasKnight = true;
+    this.toSquare=new Move(cell.x,cell.y);
+    var moves: Move[] = [];
+    moves.push(this.fromSquare,this.toSquare);
+    this.dataService.getBoard(moves)
+      .subscribe(board => this.resetBoard(board));
+  }
+
+  resetBoard(board: Chessboard[]){
+    for(let i = 0; i < board.length; i++){
+      if(board[i].piece!=null){
+        if(!this.squares[board[i].x][board[i].y].hasKnight){
+          this.squares[board[i].x][board[i].y].hasKnight=true;
+          this.fromSquare=this.toSquare;
+        }
+      }else{
+        this.squares[board[i].x][board[i].y].hasKnight=false;
+      }
+      this.squares[board[i].x][board[i].y].isTaken=board[i].taken;
+    }
   }
 
   start(){
@@ -43,13 +61,6 @@ export class SquaresComponent implements OnInit {
       this.squares[0][0].hasKnight=true;
       this.inprogress=true;
     }
-
-
-    //first try results in error
-    //the second try properly gets the board
-    this.dataService.getBoard()
-      .subscribe(board => this.chessboard$ = board);
-    this.chessboard$.forEach(i=>console.log(i))
 
   }
 

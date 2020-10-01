@@ -13,7 +13,8 @@
           (cell.x % 2 == 1 && cell.y % 2 == 1),
         white:
           (cell.x % 2 == 1 && cell.y % 2 == 0) || 
-          (cell.x % 2 == 0 && cell.y % 2 == 1)
+          (cell.x % 2 == 0 && cell.y % 2 == 1),
+        'bg-danger': cell.isTaken
       }"
       (click)="move(cell)"
       class="text-center"
