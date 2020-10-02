@@ -57,6 +57,7 @@ export class SquaresComponent implements OnInit {
   }
 
   start(){
+    this.dataService.startGame().subscribe();
     if(!this.inprogress){
       this.squares[0][0].hasKnight=true;
       this.inprogress=true;
