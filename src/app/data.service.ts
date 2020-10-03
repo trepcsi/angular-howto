@@ -17,6 +17,6 @@ export class DataService {
   }
 
   startGame(){
-    return this._http.post(this.startUrl,{});
+    return this._http.post<Chessboard[]>(this.startUrl,{});
   }
 }

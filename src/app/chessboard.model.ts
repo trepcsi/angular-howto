@@ -6,7 +6,7 @@ export class Chessboard{
 
     piece: Piece;
 
-    taken: boolean;
+    free: boolean;
 
     /*example json:
     [{

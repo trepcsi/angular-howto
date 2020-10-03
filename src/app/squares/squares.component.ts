@@ -37,6 +37,7 @@ export class SquaresComponent implements OnInit {
     }
     this.toSquare=new Move(cell.x,cell.y);
     var moves: Move[] = [];
+    console.log("move");
     moves.push(this.fromSquare,this.toSquare);
     this.dataService.getBoard(moves)
       .subscribe(board => this.resetBoard(board));
@@ -47,29 +48,23 @@ export class SquaresComponent implements OnInit {
       if(board[i].piece!=null){
         if(!this.squares[board[i].x][board[i].y].hasKnight){
           this.squares[board[i].x][board[i].y].hasKnight=true;
-          this.fromSquare=this.toSquare;
+          this.fromSquare=this.squares[board[i].x][board[i].y];
         }
       }else{
         this.squares[board[i].x][board[i].y].hasKnight=false;
       }
-      this.squares[board[i].x][board[i].y].isTaken=board[i].taken;
+      this.squares[board[i].x][board[i].y].isTaken=!board[i].free;
     }
   }
 
   start(){
-    this.dataService.startGame().subscribe();
-    if(!this.inprogress){
-      this.squares[0][0].hasKnight=true;
-      this.inprogress=true;
-    }
-
+    if (this.inprogress) return;
+    this.inprogress = true;
+    this.dataService.startGame().subscribe(board => this.resetBoard(board));  
   }
 
   restart(){
     this.inprogress=false;
-    this.squares.forEach((element) =>
-      element.forEach((e) => (e.hasKnight = false))
-    );
     this.start();
   }
 }
