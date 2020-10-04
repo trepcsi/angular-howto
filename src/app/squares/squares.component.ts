@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { isThisTypeNode, textChangeRangeIsUnchanged } from 'typescript';
 import { Chessboard } from '../chessboard.model';
 import { DataService } from '../data.service';
+import { GameStatus } from '../gamestatus.model';
 import { Move } from '../move';
 import { Square } from '../square';
 
@@ -17,6 +19,8 @@ export class SquaresComponent implements OnInit {
 
   public fromSquare: Move = new Move(0,0);
   public toSquare: Move;
+
+  public status = new GameStatus("IN_GAME");
 
   constructor(private dataService: DataService) {
     this.inprogress=false;
@@ -37,10 +41,12 @@ export class SquaresComponent implements OnInit {
     }
     this.toSquare=new Move(cell.x,cell.y);
     var moves: Move[] = [];
-    console.log("move");
     moves.push(this.fromSquare,this.toSquare);
     this.dataService.getBoard(moves)
       .subscribe(board => this.resetBoard(board));
+    this.dataService.getGameStatus()
+      .subscribe(s => {this.status.status = s.status});
+
   }
 
   resetBoard(board: Chessboard[]){
